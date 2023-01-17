@@ -1,0 +1,11 @@
+name: Binder
+on: [push]
+
+jobs:
+  Create-MyBinderOrg-Cache:
+    runs-on: ubuntu-latest
+    steps:
+    - name: test binder image
+      uses: jupyterhub/repo2docker-action@master
+      with:
+        NO_PUSH: true
