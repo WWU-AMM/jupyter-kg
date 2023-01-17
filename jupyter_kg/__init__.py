@@ -1,7 +1,7 @@
-import pprint
 
 import ipycytoscape as ipycytoscape
 import rdflib.graph
+from rich.table import Table
 
 
 def parse_graph(turtle_contents:str) -> rdflib.graph.Graph:
@@ -11,7 +11,14 @@ def parse_graph(turtle_contents:str) -> rdflib.graph.Graph:
 
 
 def print_sparql_results(graph:rdflib.graph.Graph, query:str) -> list:
-    return pprint.pformat(graph.query(query).bindings)
+    from rich.jupyter import print
+    table = Table(show_header=True, header_style="bold magenta")
+    results = list(graph.query(query).bindings)
+    for name in results[0].keys():
+        table.add_column(name)
+    for res in results:
+        table.add_row(*res.values())
+    print(table)
 
 
 def visualize_graph(graph:rdflib.graph.Graph) -> ipycytoscape.CytoscapeWidget:
