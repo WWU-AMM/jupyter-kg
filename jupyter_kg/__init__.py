@@ -1,3 +1,5 @@
+import pprint
+
 import ipycytoscape as ipycytoscape
 import rdflib.graph
 
@@ -8,8 +10,8 @@ def parse_graph(turtle_contents:str) -> rdflib.graph.Graph:
     return g
 
 
-def run_sparql_query(graph:rdflib.graph.Graph, query:str) -> list:
-    return graph.query(query).bindings
+def print_sparql_results(graph:rdflib.graph.Graph, query:str) -> list:
+    return pprint.pformat(graph.query(query).bindings)
 
 
 def visualize_graph(graph:rdflib.graph.Graph) -> ipycytoscape.CytoscapeWidget:
